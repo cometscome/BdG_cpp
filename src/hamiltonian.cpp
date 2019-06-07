@@ -5,11 +5,18 @@
 void Hamiltonian::calc_meanfields(){
     
     complex <double> v;
-    for(int ix = 0; ix < _Nx; ix++){
-        for(int iy = 0; iy < _Ny; iy++){
+    int ix;
+    int iy;
+    int i;
+
+    for (int i=0;i<N;i++){
+            _hbdg->i2xy(i,ix,iy);
+    //        cout << "ix,iy " << ix << "," << iy << " " << v << std::endl;
+    //for(int ix = 0; ix < _Nx; ix++){
+        //for(int iy = 0; iy < _Ny; iy++){
             int jx = ix;
             int jy = iy;
-            int i = _hbdg->xy2i(ix,iy);
+            //int i = _hbdg->xy2i(ix,iy);
             int j = _hbdg->xy2i(jx,jy)+N;
             v = _rscg_meanfields->calc_meanfield(i,j);
             //cout << "ix,iy " << ix << "," << iy << " " << v << std::endl;
@@ -17,7 +24,7 @@ void Hamiltonian::calc_meanfields(){
             vec_delta[i] = U*v;
             //cout << "ix,iy " << ix << "," << iy << " " << vec_delta[i]  << std::endl;
             //
-        };
+        //};
         //cout << vec_delta[ix] << std::endl;
     };
     //cout << vec_delta[0] << std::endl;

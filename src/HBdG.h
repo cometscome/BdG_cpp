@@ -14,6 +14,7 @@ class HBdG{
     };
 
     int xy2i(int ix,int iy);
+    void i2xy(int i,int &ix,int &iy);
 
 
     HBdG(int Nx,int Ny,double mu);

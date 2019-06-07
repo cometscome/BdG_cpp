@@ -5,6 +5,11 @@ int HBdG::xy2i(int ix,int iy){
     return i;
 };
 
+void HBdG::i2xy(int i,int &ix,int &iy){
+    ix = i % _Ny;
+    iy = (i-ix)/_Ny;
+};
+
 vector <complex <double> > HBdG::matvec(vector <complex <double> > &x){
     
     int* row_ptr;
@@ -35,8 +40,15 @@ HBdG::HBdG(int Nx,int Ny,double mu):H(2*(Nx*Ny),2*(Nx*Ny)){
     double delta0 = 1.0;
     complex <double> v;
     double t = 1.0;
-    for(int ix = 0; ix < Nx; ix++){
-        for(int iy = 0; iy < Ny; iy++){
+    int ix;
+    int iy;
+
+    for (int i=0;i<N;i++){
+        i2xy(i,ix,iy);
+
+
+    //for(int ix = 0; ix < Nx; ix++){
+        //for(int iy = 0; iy < Ny; iy++){
             //Normal states
             //cout << ix << " " << iy << std::endl;
 
@@ -47,7 +59,7 @@ HBdG::HBdG(int Nx,int Ny,double mu):H(2*(Nx*Ny),2*(Nx*Ny)){
             if (jx > Nx-1){
                 jx = jx - Nx;
             };
-            int i = xy2i(ix,iy);
+            //int i = xy2i(ix,iy);
             int j = xy2i(jx,jy);
 
             v = -t;
@@ -59,7 +71,7 @@ HBdG::HBdG(int Nx,int Ny,double mu):H(2*(Nx*Ny),2*(Nx*Ny)){
             if (jx < 0){
                 jx = jx + Nx;
             };
-            i = xy2i(ix,iy);
+            //i = xy2i(ix,iy);
             j = xy2i(jx,jy);
             v = -t;
 
@@ -72,7 +84,7 @@ HBdG::HBdG(int Nx,int Ny,double mu):H(2*(Nx*Ny),2*(Nx*Ny)){
             if (jy > Ny-1){
                 jy = jy - Ny;
             };
-            i = xy2i(ix,iy);
+            //i = xy2i(ix,iy);
             j = xy2i(jx,jy);
             v = -t;
 
@@ -84,7 +96,7 @@ HBdG::HBdG(int Nx,int Ny,double mu):H(2*(Nx*Ny),2*(Nx*Ny)){
             if (jy < 0){
                 jy = jy + Ny;
             };
-            i = xy2i(ix,iy);
+            //i = xy2i(ix,iy);
             j = xy2i(jx,jy);
 
             v = -t;
@@ -94,7 +106,7 @@ HBdG::HBdG(int Nx,int Ny,double mu):H(2*(Nx*Ny),2*(Nx*Ny)){
             //center
             jx = ix;
             jy = iy;
-            i = xy2i(ix,iy);
+            //i = xy2i(ix,iy);
             j = xy2i(jx,jy);
 
             v = -mu;
@@ -105,13 +117,13 @@ HBdG::HBdG(int Nx,int Ny,double mu):H(2*(Nx*Ny),2*(Nx*Ny)){
             //Delta
             jx = ix;
             jy = iy;
-            i = xy2i(ix,iy);
+            //i = xy2i(ix,iy);
             j = xy2i(jx,jy)+N;
             v = delta0;
 
             H(i,j) = v;
             H(j,i) = v;
-        };
+        //};
     };
 
 
